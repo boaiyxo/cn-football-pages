@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>足彩信息参考与日常查询</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.7;
+            background: linear-gradient(145deg, #fae6d1 0%, #f9d8b4 50%, #f5cba0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .page-wrapper {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        /* 主卡片——视觉焦点 */
+        .hero-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(2px);
+            border-radius: 48px 48px 32px 32px;
+            box-shadow: 0 20px 40px -12px rgba(140, 80, 30, 0.25);
+            padding: 2.8rem 2.5rem 2.5rem;
+            margin-bottom: 2rem;
+            transition: box-shadow 0.2s;
+        }
+
+        .hero-card h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #5f3e2a;
+            margin-bottom: 0.3rem;
+            line-height: 1.2;
+        }
+
+        .hero-sub {
+            color: #8b6a4c;
+            font-size: 1rem;
+            border-left: 4px solid #dbaa7a;
+            padding-left: 1rem;
+            margin: 0.8rem 0 1.6rem 0;
+            opacity: 0.85;
+        }
+
+        .hero-text {
+            font-size: 1.05rem;
+            color: #3d2c1d;
+            max-width: 85%;
+        }
+
+        .hero-text a {
+            color: #b26b3a;
+            text-decoration: none;
+            border-bottom: 2px solid #eacbb0;
+            font-weight: 500;
+        }
+
+        .hero-text a:hover {
+            border-bottom-color: #b26b3a;
+        }
+
+        /* 双列卡片网格 */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.8rem 1.8rem 2rem;
+            box-shadow: 0 8px 24px rgba(100, 60, 20, 0.10);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(100, 60, 20, 0.14);
+        }
+
+        .info-card h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #4f351f;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .info-card h2::before {
+            content: "•";
+            color: #dbaa7a;
+            font-size: 1.6rem;
+            margin-right: 0.2rem;
+        }
+
+        .info-card p, .info-card li {
+            font-size: 0.98rem;
+            color: #3b2a1b;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0.2rem;
+        }
+
+        .info-card li {
+            margin-bottom: 0.7rem;
+            padding-left: 1.4rem;
+            position: relative;
+        }
+
+        .info-card li::before {
+            content: "·";
+            position: absolute;
+            left: 0.2rem;
+            color: #c28658;
+            font-weight: bold;
+        }
+
+        .info-card .soft-link {
+            color: #b26b3a;
+            text-decoration: none;
+            border-bottom: 1px dashed #dbb38e;
+        }
+
+        .info-card .soft-link:hover {
+            border-bottom-style: solid;
+            border-bottom-color: #8f5a30;
+        }
+
+        /* 延伸阅读卡片（宽卡） */
+        .extend-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.8rem 2rem 2rem;
+            box-shadow: 0 8px 24px rgba(100, 60, 20, 0.10);
+            margin-bottom: 2rem;
+        }
+
+        .extend-card h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #4f351f;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .extend-card h2::before {
+            content: "○";
+            color: #cfa77c;
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+
+        .extend-card p {
+            font-size: 0.98rem;
+            color: #3b2a1b;
+            margin-bottom: 0.8rem;
+        }
+
+        .extend-card a {
+            color: #b26b3a;
+            text-decoration: none;
+            border-bottom: 2px solid #eacbb0;
+            font-weight: 500;
+        }
+
+        .extend-card a:hover {
+            border-bottom-color: #b26b3a;
+        }
+
+        /* FAQ 摘要卡片 */
+        .faq-mini {
+            background: rgba(255, 245, 235, 0.7);
+            backdrop-filter: blur(2px);
+            border-radius: 28px;
+            padding: 1.6rem 2rem;
+            border: 1px solid rgba(210, 160, 110, 0.25);
+        }
+
+        .faq-mini h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #573f2c;
+            margin-bottom: 0.8rem;
+        }
+
+        .faq-item {
+            display: flex;
+            gap: 0.6rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .faq-q {
+            font-weight: 500;
+            color: #6b4d32;
+            min-width: 5.2rem;
+        }
+
+        .faq-a {
+            color: #3f2e1e;
+        }
+
+        .faq-a a {
+            color: #b26b3a;
+            text-decoration: none;
+            border-bottom: 1px dotted #ccaa88;
+        }
+
+        .faq-a a:hover {
+            border-bottom-style: solid;
+        }
+
+        /* 响应式 */
+        @media (max-width: 700px) {
+            .hero-card {
+                padding: 2rem 1.5rem;
+                border-radius: 32px;
+            }
+
+            .hero-card h1 {
+                font-size: 1.9rem;
+            }
+
+            .hero-text {
+                max-width: 100%;
+            }
+
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 1.4rem;
+            }
+
+            .info-card, .extend-card, .faq-mini {
+                padding: 1.5rem 1.2rem;
+            }
+
+            .faq-item {
+                flex-direction: column;
+                gap: 0.2rem;
+            }
+
+            .faq-q {
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem 0.6rem;
+            }
+
+            .hero-card h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <!-- 主视觉 -->
+    <div class="hero-card">
+        <h1>对照 · 查询 · 延伸</h1>
+        <div class="hero-sub">日常信息整理 · 足彩参考</div>
+        <div class="hero-text">
+            无论是赛季初的规则回顾，还是赛前数据对照，很多人习惯先翻一翻 <a href="https://cn-football-lottery.com">足彩</a> 相关的基础信息。这里没有复杂的分析模型，只有便于日常查阅的条目、常见疑问的摘要，以及一些延伸阅读的线索。
+        </div>
+    </div>
+
+    <!-- 两个并列用途卡片 -->
+    <div class="grid-2col">
+        <div class="info-card">
+            <h2>日常查询卡片</h2>
+            <ul>
+                <li>赛程与对阵表（按联赛、轮次整理）</li>
+                <li>历史赔率变动简表</li>
+                <li>球队近况与伤病简讯</li>
+                <li>玩法说明（胜平负 / 让球 / 比分）</li>
+            </ul>
+            <p style="margin-top: 0.8rem; font-size: 0.92rem; color: #6c523b;">信息源偏向公开数据，方便横向对照。</p>
+        </div>
+
+        <div class="info-card">
+            <h2>适合人群</h2>
+            <ul>
+                <li>习惯先看规则再参与的新手</li>
+                <li>需要快速查阅联赛背景的爱好者</li>
+                <li>只做信息收集、不跟风下注的读者</li>
+                <li>希望了解赛事基本面的普通球迷</li>
+            </ul>
+            <p style="margin-top: 0.8rem; font-size: 0.92rem; color: #6c523b;">内容保持中立，不涉及任何投注建议。</p>
+        </div>
+    </div>
+
+    <!-- 延伸阅读段落卡片 -->
+    <div class="extend-card">
+        <h2>从日常阅读延伸</h2>
+        <p>很多人最开始只是想知道“让球平局怎么算”，后来慢慢开始留意赔率变动的原因、球队战术风格、甚至某个联赛的升降级制度。这些内容往往分散在多个页面里，如果能在一个地方顺着读下去，会省去很多来回切换的时间。</p>
+        <p><a href="https://cn-football-lottery.com">足彩</a> 站点里有一部分篇幅用于解释这些基础概念与玩法结构，没有复杂的图表，也没有强推导的结论，更像是放在手边的赛事笔记本。适合在比赛前翻一翻，或者在赛后对照着回顾。</p>
+        <p>如果你也习惯先看明白规则再进入具体讨论，这个方向的信息卡片或许能帮你节省一些检索的精力。</p>
+    </div>
+
+    <!-- FAQ 摘要卡片 -->
+    <div class="faq-mini">
+        <h3>常见疑问 · 摘要</h3>
+        <div class="faq-item">
+            <span class="faq-q">问：玩法太多记不住？</span>
+            <span class="faq-a">官方玩法说明通常分类清晰，比如胜平负、让球、比分、总进球，可以按需查阅对应卡片。</span>
+        </div>
+        <div class="faq-item">
+            <span class="faq-q">问：赔率数字怎么看？</span>
+            <span class="faq-a">通常数字越低代表该结果被市场认为越可能发生，但实际足球比赛偶然性很大，数字只反映当下倾向。</span>
+        </div>
+        <div class="faq-item">
+            <span class="faq-q">问：有推荐的延伸阅读吗？</span>
+            <span class="faq-a">可以从联赛赛制、球队历史、赛季转会三条线入手，<a href="https://cn-football-lottery.com">足彩</a> 页面里也整理了部分背景介绍。</span>
+        </div>
+    </div>
+
+    <!-- 底部留白自然收尾 -->
+    <div style="height: 0.8rem;"></div>
+</div>
+</body>
+</html>
