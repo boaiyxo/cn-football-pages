@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>威廉希尔 · 稳定入口｜信息卡片</title>
+  <style>
+    /* 全局重置 & 字体 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', 'Helvetica Neue', sans-serif;
+      background: #f4f5f7;
+      color: #1e1e2a;
+      line-height: 1.6;
+    }
+
+    /* 深色头图 – 主视觉 */
+    .hero {
+      background: linear-gradient(145deg, #0b0e17 0%, #1b202f 100%);
+      color: #e8edf5;
+      padding: 4rem 1.5rem 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 170, 60, 0.04) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero .subhead {
+      font-size: 1.1rem;
+      color: #b0bcd9;
+      max-width: 560px;
+      margin: 0 auto 1.2rem;
+      font-weight: 300;
+    }
+
+    .hero .badge {
+      display: inline-block;
+      background: rgba(255, 200, 90, 0.12);
+      border: 1px solid rgba(255, 200, 90, 0.2);
+      color: #f5d78e;
+      padding: 0.25rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 400;
+      backdrop-filter: blur(4px);
+    }
+
+    /* 内容容器 */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* 信息卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 2rem 1.5rem 1.8rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      transition: box-shadow 0.2s, transform 0.15s;
+      border: 1px solid #eaeef5;
+    }
+
+    .card:hover {
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      color: #141827;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #3b4055;
+      margin-bottom: 0.4rem;
+    }
+
+    .card .tag {
+      display: inline-block;
+      background: #f0f2f8;
+      color: #2d334a;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 30px;
+      margin-top: 0.5rem;
+    }
+
+    /* 自然链接段落 – 强调色 */
+    .intro-para {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 2rem 2rem 2.2rem;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+      margin-bottom: 2.5rem;
+      border-left: 6px solid #e4a951;
+    }
+
+    .intro-para p {
+      font-size: 1rem;
+      color: #222639;
+      margin-bottom: 1rem;
+    }
+
+    .intro-para a {
+      color: #c8812a;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .intro-para a:hover {
+      border-bottom: 1px solid #c8812a;
+      color: #a3661e;
+    }
+
+    /* FAQ 摘要 – 极简手风琴感 */
+    .faq-section {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 1.8rem 2rem 2rem;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+      margin-bottom: 2.5rem;
+    }
+
+    .faq-section h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      color: #141827;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #e7eaf0;
+      padding: 0.8rem 0;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-item strong {
+      display: block;
+      font-weight: 500;
+      color: #1c223b;
+      margin-bottom: 0.25rem;
+      font-size: 0.95rem;
+    }
+
+    .faq-item p {
+      font-size: 0.9rem;
+      color: #4d5470;
+      margin: 0;
+    }
+
+    /* 人群 / 场景小标签 */
+    .audience-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.4rem;
+      margin: 0.8rem 0 0.2rem;
+    }
+
+    .audience-tag {
+      background: #f0f3fc;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      color: #2b3350;
+      border: 1px solid #dfe4ef;
+    }
+
+    /* 页脚 */
+    .footer-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #7b819c;
+      border-top: 1px solid #dadfeb;
+      padding-top: 2rem;
+      margin-top: 1rem;
+      letter-spacing: 0.01em;
+    }
+
+    .footer-note a {
+      color: #7b819c;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      transition: color 0.15s;
+    }
+
+    .footer-note a:hover {
+      color: #c8812a;
+    }
+
+    /* 响应式细节 */
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero .subhead {
+        font-size: 1rem;
+      }
+      .container {
+        padding: 1.8rem 1rem 3rem;
+      }
+      .card {
+        padding: 1.5rem 1.2rem;
+      }
+      .intro-para {
+        padding: 1.5rem 1.2rem;
+      }
+      .faq-section {
+        padding: 1.5rem 1.2rem;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .hero {
+        padding: 5rem 2rem 4rem;
+      }
+      .card-grid {
+        gap: 2.2rem;
+      }
+    }
+
+    /* 强调色点缀 */
+    .highlight-line {
+      width: 50px;
+      height: 3px;
+      background: #e4a951;
+      margin: 0.2rem 0 0.8rem;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 深色头图 -->
+  <section class="hero">
+    <h1>威廉希尔</h1>
+    <p class="subhead">一个你或许听过、或许用过的名字 —— 稳定、简单、不绕路。</p>
+    <span class="badge">日常入口 · 信息卡片</span>
+  </section>
+
+  <div class="container">
+
+    <!-- 自然链接段落 – 强调色左侧条 -->
+    <div class="intro-para">
+      <p>
+        很多人第一次接触<strong>威廉希尔</strong>，是因为朋友随口一句“那边东西挺全的”。后来发现，它其实是一个覆盖面很广的平台，从资讯到服务都有。如果你也想找一个相对稳定的入口，不妨记住这个地址：<a href="https://cns-wh.com">威廉希尔</a>。页面本身简洁，没有花哨的跳转，适合日常使用。
+      </p>
+      <p>
+        和那些需要反复寻找的站点不同，这里更像一个安静的起点 —— 你打开就能看到主要功能，不用猜。整个体验偏向实用，没有太多干扰。
+      </p>
+    </div>
+
+    <!-- 信息卡片：用途 + 场景 -->
+    <div class="card-grid">
+      <div class="card">
+        <span class="icon">🧭</span>
+        <h3>主要用途</h3>
+        <p>浏览资讯、查看动态、使用基础服务。界面直接，不需要额外注册其他工具就能完成大部分操作。</p>
+        <div class="tag">日常访问</div>
+      </div>
+
+      <div class="card">
+        <span class="icon">🧩</span>
+        <h3>适合人群</h3>
+        <p>习惯自己探索信息的人、不想被算法推着走的人、以及希望一个入口包含多种可能性的用户。</p>
+        <div class="audience-row">
+          <span class="audience-tag">轻度用户</span>
+          <span class="audience-tag">信息收集者</span>
+          <span class="audience-tag">实用派</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="icon">⚙️</span>
+        <h3>场景举例</h3>
+        <p>周末想看看有什么新内容、工作间隙随手打开刷新、或者作为备用入口收藏在书签里。</p>
+        <div class="tag">碎片时间</div>
+      </div>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-section">
+      <h2>❓ 一些可能想问的</h2>
+      <div class="faq-item">
+        <strong>这个页面和威廉希尔是什么关系？</strong>
+        <p>这是一个介绍性的信息卡片页，帮助你快速了解平台特点。真正的访问入口就是上文提到的 <a href="https://cns-wh.com" style="color:#c8812a;text-decoration:underline;text-underline-offset:3px;">威廉希尔</a>。</p>
+      </div>
+      <div class="faq-item">
+        <strong>需要下载额外软件吗？</strong>
+        <p>不需要，直接通过浏览器打开即可。页面适配手机和电脑，没有安装门槛。</p>
+      </div>
+      <div class="faq-item">
+        <strong>内容更新快吗？</strong>
+        <p>一般来说保持日常更新，但具体节奏取决于板块。你可以把它当作一个稳定的信息源。</p>
+      </div>
+    </div>
+
+    <!-- 一段结尾说明 -->
+    <div style="background:#ffffff; border-radius:20px; padding:1.5rem 2rem; box-shadow:0 4px 14px rgba(0,0,0,0.02);">
+      <div class="highlight-line"></div>
+      <p style="font-size:0.95rem; color:#31364e;">
+        如果你还在找一个不需要折腾的入口，不妨把这个页面存下来。记住一个地址就够了：<a href="https://cns-wh.com" style="color:#c8812a;font-weight:500;text-decoration:underline;text-underline-offset:3px;">威廉希尔</a>。不复杂，也不绕路。
+      </p>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer-note">
+      <span>信息卡片 · 2025 · 仅供介绍参考</span>
+    </div>
+
+  </div>
+
+</body>
+</html>
